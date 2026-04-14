@@ -1,0 +1,8 @@
+[phases.setup]
+nixPkgs = ["jdk8"]
+
+[phases.build]
+cmds = ["mvn package -DskipTests -B"]
+
+[start]
+cmd = "java -jar -Xmx256m -Dspring.profiles.active=prod target/cake-0.0.1-SNAPSHOT.jar"
