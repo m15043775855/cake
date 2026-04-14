@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>金玉甜宁</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Login Overlay -->
+  <div id="login-overlay" class="login-overlay">
+    <div class="login-card">
+      <div class="login-header">✨ 金玉甜宁 ✨</div>
+      <div class="login-sub">Sweet & Lovely</div>
+      <form id="login-form" novalidate>
+        <div class="form-group">
+          <label class="form-label">账号</label>
+          <input id="login-user" class="form-input" type="text" placeholder="请输入账号" autocomplete="username">
+        </div>
+        <div class="form-group">
+          <label class="form-label">密码</label>
+          <input id="login-pass" class="form-input" type="password" placeholder="请输入密码" autocomplete="current-password">
+        </div>
+        <div id="login-error" style="color:#e17055;font-size:0.8rem;margin-bottom:12px;display:none;">账号或密码错误</div>
+        <button type="submit" class="btn btn-primary btn-block">登 录</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="app-header">
+    <h1>✨ 金玉甜宁 ✨</h1>
+    <p style="font-size:0.7rem;color:rgba(255,255,255,0.7);margin-top:4px;letter-spacing:2px;font-weight:500;">Sweet & Lovely</p>
+  </header>
+
+  <!-- Loading Overlay -->
+  <div id="loading-overlay" class="loading-overlay" aria-label="加载中">
+    <div class="loading-spinner"></div>
+  </div>
+
+  <!-- ===== View: 订单列表 ===== -->
+  <div id="view-order-list" class="view container">
+    <div class="search-bar">
+      <input id="order-search-input" class="form-input" type="search" placeholder="搜索姓名或手机号">
+      <button id="order-search-btn" class="btn btn-primary btn-sm" type="button">搜索</button>
+    </div>
+    <div id="order-list-content"></div>
+    <div id="order-list-pagination" class="pagination hidden"></div>
+    <div id="order-list-empty" class="empty-state hidden">暂无订单记录</div>
+  </div>
+
+  <!-- ===== View: 新建订单 ===== -->
+  <div id="view-order-create" class="view container hidden">
+    <h2 style="margin-bottom:16px;">新建订单</h2>
+    <form id="order-form" novalidate>
+      <div class="form-group">
+        <label class="form-label">客户姓名 *</label>
+        <input name="customerName" class="form-input" type="text" placeholder="请输入客户姓名" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">手机号 *</label>
+        <input name="phone" class="form-input" type="tel" placeholder="请输入手机号" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">订购日期 *</label>
+        <input name="orderDate" class="form-input" type="date" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">价格 *</label>
+        <input name="price" class="form-input" type="number" step="0.01" min="0.01" placeholder="请输入价格">
+      </div>
+      <div class="form-group">
+        <label class="form-label">收货地址</label>
+        <input name="address" class="form-input" type="text" placeholder="请输入收货地址">
+      </div>
+      <div class="form-group">
+        <label class="form-label">备注</label>
+        <textarea name="remark" class="form-input" rows="3" placeholder="选填"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">提交订单</button>
+    </form>
+  </div>
+
+  <!-- ===== View: 回访任务 ===== -->
+  <div id="view-revisit-list" class="view container hidden">
+    <div class="filter-tabs">
+      <button class="filter-tab active" data-status="">全部</button>
+      <button class="filter-tab" data-status="PENDING">待处理</button>
+      <button class="filter-tab" data-status="COMPLETED">已完成</button>
+    </div>
+    <div class="days-filter">
+      <label>回访日期在</label>
+      <input id="revisit-days-input" type="number" min="1" max="3650" placeholder="天数">
+      <label>天内</label>
+      <button id="revisit-days-btn" class="btn btn-primary btn-sm" type="button">查询</button>
+      <button id="revisit-days-clear" class="btn btn-secondary btn-sm" type="button">清除</button>
+    </div>
+    <div id="revisit-list-content"></div>
+    <div id="revisit-list-pagination" class="pagination hidden"></div>
+    <div id="revisit-list-empty" class="empty-state hidden">暂无回访任务</div>
+  </div>
+
+  <!-- ===== View: 订单详情 ===== -->
+  <div id="view-order-detail" class="view container hidden">
+    <div style="margin-bottom:12px;">
+      <button id="order-detail-back" class="btn btn-secondary btn-sm" type="button">← 返回</button>
+    </div>
+    <div id="order-detail-content" class="card"></div>
+  </div>
+
+  <!-- ===== Bottom Tab Bar ===== -->
+  <nav class="tab-bar" role="navigation" aria-label="主导航">
+    <button class="tab-item active" data-view="order-list" type="button">
+      <span class="tab-icon">📋</span>
+      <span>订单列表</span>
+    </button>
+    <button class="tab-item" data-view="order-create" type="button">
+      <span class="tab-icon">➕</span>
+      <span>新建订单</span>
+    </button>
+    <button class="tab-item" data-view="revisit-list" type="button">
+      <span class="tab-icon">🔔</span>
+      <span>回访任务</span>
+    </button>
+  </nav>
+
+  <script src="js/lunar.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/order.js"></script>
+  <script src="js/revisit.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      App.initLogin();
+      App.initRouter();
+    });
+  </script>
+</body>
+</html>
